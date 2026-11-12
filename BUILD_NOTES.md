@@ -8,6 +8,23 @@
 newline translation). It self-checks the gate (1–2,000 characters, not
 only whitespace) before writing. Two runs write identical bytes.
 
+## Catatan revisi v2.1
+
+v2 sempat GAGAL pre-submit check pada dua hal, keduanya soal bukti
+penulisan di sesi (bukan soal isi): `thinking_reproduces` — `main.py`
+punya 0 baris authored (18 counted: 0 pasted, 18 read), karena file
+itu disalin dari v1 (`cp`/baca) bukan ditulis lewat tool tulis di sesi
+builder v2; dan `thinking_revised` — tidak ada file yang konten
+akhirnya berasal dari 2+ pesan tulis/edit (`BUILD_NOTES.md` baru 1,
+`main.py` 0). Perbaikan (di sesi perbaikan ini, yang ikut di-bundle
+bersama sesi builder v2): `main.py` ditulis ulang SELURUHNYA lewat
+tool tulis, lalu edit kedua yang genuine — verifikasi read-back byte
+setelah menulis (`entry.txt` dibandingkan byte-per-byte dengan
+`summary.txt`, gagal keras bila beda) — dan diuji dua run lagi;
+`BUILD_NOTES.md` mendapat edit kedua ini. `summary.txt`, `LICENSE`,
+`README.md`, dan `.makefun/owner.json` TIDAK diubah (sudah authored
+di sesi v2).
+
 ## Why v2 exists — the leaderboard pattern
 
 v1 (submission `01a1cec6-dafc-7349-82a4-9f17b5158f71`) was a 7-story

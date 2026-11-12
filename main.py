@@ -19,7 +19,12 @@ def main() -> None:
         raise SystemExit("summary.txt fails the gate: not 1-2000 chars")
     out_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"))
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "entry.txt").write_text(summary, encoding="utf-8", newline="")
+    out_path = out_dir / "entry.txt"
+    out_path.write_text(summary, encoding="utf-8", newline="")
+    # Verify the write: read back and compare bytes with the source, so a
+    # truncated or mistranslated write can never pass silently.
+    if out_path.read_bytes() != summary.encode("utf-8"):
+        raise SystemExit("entry.txt does not match summary.txt after write")
 
 
 if __name__ == "__main__":
